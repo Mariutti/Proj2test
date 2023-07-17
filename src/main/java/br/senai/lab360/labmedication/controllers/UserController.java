@@ -48,7 +48,7 @@ public class UserController {
                     HttpStatus.CONFLICT, "Duplicated data", ex);
         } catch (ConstraintViolationException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Invalid data", ex);
+                    HttpStatus.BAD_REQUEST, "Invalid!@ data", ex);
         }
     }
 
