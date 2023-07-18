@@ -15,7 +15,5 @@ import org.mapstruct.ReportingPolicy;
 
     User map(UserPutRequestBodyDto source);
 
-    User map(UserPatchPwdRequestDto source);
-
     UserPostRequestBodyDto map(User source);
 }

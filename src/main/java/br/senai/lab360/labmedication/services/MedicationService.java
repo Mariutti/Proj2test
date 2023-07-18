@@ -22,7 +22,7 @@ public class MedicationService {
     private final MedicationMapper mapper;
 
     public Medication saveMedication(MedicationPostRequestBodyDto medicationPostRequestBodyDto) {
-        Medication medication = mapper.mapToMedicationPostRequestBodyDto(medicationPostRequestBodyDto);
+        Medication medication = mapper.map(medicationPostRequestBodyDto);
         medication.setAdministrationTimeLog(LocalDateTime.now());
         return medicationRepository.save(medication);
     }
@@ -39,13 +39,17 @@ public class MedicationService {
     public MedicationPutResponseBodyDto replaceMedicationData(Long id,
                                                               MedicationPutRequestBodyDto medicationPutRequestBodyDto) {
         Medication savedMedication = findByIdOrThrowNotFoundException(id);
-        Medication medicationToSave = mapper.mapToMedicationPutRequestBodyDto(medicationPutRequestBodyDto);
+        Medication medicationToSave = mapper.map(medicationPutRequestBodyDto);
         medicationToSave.setId(id);
         medicationToSave.setMedicineName(savedMedication.getMedicineName());
         medicationToSave.setAdministrationTimeLog(savedMedication.getAdministrationTimeLog());
         medicationRepository.save(medicationToSave);
 
         return mapper
-                .mapFromMedicationPutResponseBodyDto(findByIdOrThrowNotFoundException(id));
+                .mapToMedicationPutResponseBodyDto1(findByIdOrThrowNotFoundException(id));
+    }
+
+    public void deleteMedicationById(Long id) {
+        medicationRepository.delete(findByIdOrThrowNotFoundException(id));
     }
 }

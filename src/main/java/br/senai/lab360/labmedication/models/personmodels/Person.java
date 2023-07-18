@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @MappedSuperclass
@@ -30,7 +31,7 @@ public abstract class Person {
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date birthdate;
+    private LocalDate birthdate;
 
     @Column(unique=true, nullable = false)
     @Pattern(regexp = "\\d{11}")

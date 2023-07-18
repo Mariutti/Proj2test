@@ -1,5 +1,6 @@
 package br.senai.lab360.labmedication.models.personmodels.patientmodels;
 
+import br.senai.lab360.labmedication.models.adressmodels.Address;
 import br.senai.lab360.labmedication.models.personmodels.Person;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -41,8 +42,9 @@ public class Patient extends Person {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date healthCareExpiration;
 
-    @Column
-    private String adress;
+    @OneToOne
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
 
 }
 //Contato de Emergência: Obrigatório. Deve ser texto

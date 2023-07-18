@@ -62,4 +62,9 @@ public class MedicationController {
         return ResponseEntity.ok(medicationService.findByIdOrThrowNotFoundException(id));
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void deleteMedication(@PathVariable Long id){
+        medicationService.deleteMedicationById(id);
+    }
 }

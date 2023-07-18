@@ -11,10 +11,10 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface MedicationMapper {
 
-    Medication mapToMedicationPostRequestBodyDto(MedicationPostRequestBodyDto source);
+    Medication map(MedicationPostRequestBodyDto source);
 
-    Medication mapToMedicationPutRequestBodyDto(MedicationPutRequestBodyDto source);
+    Medication map(MedicationPutRequestBodyDto source);
 
-    MedicationPutResponseBodyDto mapFromMedicationPutResponseBodyDto(Medication source);
+    MedicationPutResponseBodyDto mapToMedicationPutResponseBodyDto1(Medication source);
 
 }

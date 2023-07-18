@@ -1,6 +1,7 @@
 package br.senai.lab360.labmedication.services;
 
 import br.senai.lab360.labmedication.mappers.PatientMapper;
+import br.senai.lab360.labmedication.models.adressmodels.Address;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.Patient;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPostRequestBodyDto;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPutRequestBodyDto;
@@ -25,6 +26,9 @@ public class PatientService {
 
     //  S04
     public Patient savePatient(PatientPostRequestBodyDto patientPostRequestBodyDto) {
+        Patient patientToSave = mapper.map((patientPostRequestBodyDto));
+//        Address pacienteAddress = map(patientPostRequestBodyDto.getAdressIdDto());
+//        patientToSave.setAddress(pa); TODO mapemaneto de Address
         return patientRepository.save(mapper.map(patientPostRequestBodyDto));
     }
 
