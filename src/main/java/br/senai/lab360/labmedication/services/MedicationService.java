@@ -1,10 +1,12 @@
 package br.senai.lab360.labmedication.services;
 
 import br.senai.lab360.labmedication.mappers.MedicationMapper;
+import br.senai.lab360.labmedication.mappers.PatientMapper;
+import br.senai.lab360.labmedication.mappers.UserMapper;
 import br.senai.lab360.labmedication.models.medicationmodels.Medication;
 import br.senai.lab360.labmedication.models.medicationmodels.dtos.MedicationPostRequestBodyDto;
 import br.senai.lab360.labmedication.models.medicationmodels.dtos.MedicationPutRequestBodyDto;
-import br.senai.lab360.labmedication.models.medicationmodels.dtos.MedicationPutResponseBodyDto;
+import br.senai.lab360.labmedication.models.medicationmodels.dtos.MedicationResponseDto;
 import br.senai.lab360.labmedication.repositories.MedicationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,11 +22,18 @@ public class MedicationService {
     //  DI
     private final MedicationRepository medicationRepository;
     private final MedicationMapper mapper;
+    private final UserMapper uMapper;
+    private final PatientMapper pMapper;
 
-    public Medication saveMedication(MedicationPostRequestBodyDto medicationPostRequestBodyDto) {
+    public MedicationResponseDto saveMedication(MedicationPostRequestBodyDto medicationPostRequestBodyDto) {
         Medication medication = mapper.map(medicationPostRequestBodyDto);
         medication.setAdministrationTimeLog(LocalDateTime.now());
-        return medicationRepository.save(medication);
+        Medication response = medicationRepository.save(medication);
+        MedicationResponseDto responseDto = mapper.mapToMedicationPutResponseBodyDto(response);
+        responseDto.setPatientIdDto(pMapper.mapToPatientIdDto(response.getPatient()));
+        responseDto.setUserIdDto(uMapper.mapToUserIdDto(response.getUser()));
+
+        return responseDto;
     }
 
     public List<Medication> listMedications() {
@@ -36,8 +45,8 @@ public class MedicationService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Medication not found"));
     }
 
-    public MedicationPutResponseBodyDto replaceMedicationData(Long id,
-                                                              MedicationPutRequestBodyDto medicationPutRequestBodyDto) {
+    public MedicationResponseDto replaceMedicationData(Long id,
+                                                       MedicationPutRequestBodyDto medicationPutRequestBodyDto) {
         Medication savedMedication = findByIdOrThrowNotFoundException(id);
         Medication medicationToSave = mapper.map(medicationPutRequestBodyDto);
         medicationToSave.setId(id);
@@ -46,7 +55,7 @@ public class MedicationService {
         medicationRepository.save(medicationToSave);
 
         return mapper
-                .mapToMedicationPutResponseBodyDto1(findByIdOrThrowNotFoundException(id));
+                .mapToMedicationPutResponseBodyDto(findByIdOrThrowNotFoundException(id));
     }
 
     public void deleteMedicationById(Long id) {

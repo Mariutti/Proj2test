@@ -1,5 +1,8 @@
 package br.senai.lab360.labmedication.models.medicationmodels;
 
+import br.senai.lab360.labmedication.models.adressmodels.Address;
+import br.senai.lab360.labmedication.models.personmodels.patientmodels.Patient;
+import br.senai.lab360.labmedication.models.personmodels.usermodels.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
@@ -45,10 +48,12 @@ public class Medication {
     @Column
     private String notes;
 
-//    @Column
-//    private Long idPatient;
-//
-//    @Column
-//    private Long idMd;
+    @OneToOne
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }

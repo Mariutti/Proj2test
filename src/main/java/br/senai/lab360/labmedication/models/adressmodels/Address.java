@@ -40,7 +40,4 @@ public class Address {
     @Column
     private String landmark;
 
-    @OneToOne(mappedBy = "address")
-    private Patient patient;
-
 }

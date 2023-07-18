@@ -1,7 +1,7 @@
 package br.senai.lab360.labmedication.mappers;
 
 import br.senai.lab360.labmedication.models.personmodels.usermodels.User;
-import br.senai.lab360.labmedication.models.personmodels.usermodels.dtos.UserPatchPwdRequestDto;
+import br.senai.lab360.labmedication.models.personmodels.usermodels.dtos.UserIdDto;
 import br.senai.lab360.labmedication.models.personmodels.usermodels.dtos.UserPostRequestBodyDto;
 import br.senai.lab360.labmedication.models.personmodels.usermodels.dtos.UserPutRequestBodyDto;
 import org.mapstruct.Mapper;
@@ -16,4 +16,6 @@ import org.mapstruct.ReportingPolicy;
     User map(UserPutRequestBodyDto source);
 
     UserPostRequestBodyDto map(User source);
+
+    UserIdDto mapToUserIdDto(User source);
 }

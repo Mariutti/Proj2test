@@ -43,7 +43,7 @@ public class Patient extends Person {
     private Date healthCareExpiration;
 
     @OneToOne
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @JoinColumn(name = "address_id")
     private Address address;
 
 }

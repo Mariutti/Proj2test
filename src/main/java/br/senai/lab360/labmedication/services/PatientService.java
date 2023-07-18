@@ -1,9 +1,11 @@
 package br.senai.lab360.labmedication.services;
 
+import br.senai.lab360.labmedication.mappers.AdressMapper;
 import br.senai.lab360.labmedication.mappers.PatientMapper;
-import br.senai.lab360.labmedication.models.adressmodels.Address;
+import br.senai.lab360.labmedication.models.adressmodels.dtos.AddressIdDto;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.Patient;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPostRequestBodyDto;
+import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPostResponseBodyDto;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPutRequestBodyDto;
 import br.senai.lab360.labmedication.repositories.PatientRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,17 +21,21 @@ public class PatientService {
 
     private final PatientRepository patientRepository;
     private final PatientMapper mapper;
+    private final AdressMapper aMapper;
 
     public List<Patient> findAll() {
         return patientRepository.findAll();
     }
 
     //  S04
-    public Patient savePatient(PatientPostRequestBodyDto patientPostRequestBodyDto) {
-        Patient patientToSave = mapper.map((patientPostRequestBodyDto));
-//        Address pacienteAddress = map(patientPostRequestBodyDto.getAdressIdDto());
-//        patientToSave.setAddress(pa); TODO mapemaneto de Address
-        return patientRepository.save(mapper.map(patientPostRequestBodyDto));
+    public PatientPostResponseBodyDto savePatient(PatientPostRequestBodyDto patientPostRequestBodyDto) {
+
+        Patient savedPatient = patientRepository.save(mapper.map((patientPostRequestBodyDto)));
+        AddressIdDto addressIdDto = aMapper.mapToAddressIdDto(savedPatient.getAddress());
+        PatientPostResponseBodyDto response = mapper.mapToPatientPostResponseBodyDto(savedPatient);
+        response.setAddress(addressIdDto);
+
+        return response;
     }
 
     public Patient findByIdOrThrowNotFoundException(Long id) {

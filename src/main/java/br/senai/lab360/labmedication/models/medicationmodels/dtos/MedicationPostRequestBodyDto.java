@@ -1,5 +1,7 @@
 package br.senai.lab360.labmedication.models.medicationmodels.dtos;
 
+import br.senai.lab360.labmedication.models.personmodels.patientmodels.Patient;
+import br.senai.lab360.labmedication.models.personmodels.usermodels.User;
 import lombok.Data;
 
 @Data
@@ -16,5 +18,7 @@ public class MedicationPostRequestBodyDto {
 
     private String notes;
 
-//    private Long idPatient;
+    private Patient patient;
+
+    private User user;
 }

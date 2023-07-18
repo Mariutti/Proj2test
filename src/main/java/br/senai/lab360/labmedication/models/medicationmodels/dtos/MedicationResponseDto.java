@@ -1,12 +1,14 @@
 package br.senai.lab360.labmedication.models.medicationmodels.dtos;
 
+import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientIdDto;
+import br.senai.lab360.labmedication.models.personmodels.usermodels.dtos.UserIdDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class MedicationPutResponseBodyDto {
+public class MedicationResponseDto {
 
     private Long id;
 
@@ -23,6 +25,8 @@ public class MedicationPutResponseBodyDto {
 
     private String notes;
 
-//    private Long idPatient;
+    private PatientIdDto patientIdDto;
+
+    private UserIdDto userIdDto;
 
 }

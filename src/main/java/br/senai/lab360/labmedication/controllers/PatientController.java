@@ -2,6 +2,7 @@ package br.senai.lab360.labmedication.controllers;
 
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.Patient;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPostRequestBodyDto;
+import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPostResponseBodyDto;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPutRequestBodyDto;
 import br.senai.lab360.labmedication.services.PatientService;
 import jakarta.validation.ConstraintViolationException;
@@ -24,9 +25,9 @@ public class PatientController {
 
     //  S04
     @PostMapping
-    private ResponseEntity<Patient> savePatient(@RequestBody @Valid PatientPostRequestBodyDto patientPostRequestBodyDto) {
+    private ResponseEntity<PatientPostResponseBodyDto> savePatient(@RequestBody @Valid PatientPostRequestBodyDto patientPostRequestBodyDto) {
         try {
-            return new ResponseEntity<Patient>(patientService.savePatient(patientPostRequestBodyDto), HttpStatus.CREATED);
+            return new ResponseEntity<PatientPostResponseBodyDto>(patientService.savePatient(patientPostRequestBodyDto), HttpStatus.CREATED);
         } catch (DataIntegrityViolationException ex) {
             throw new ResponseStatusException(
                     HttpStatus.CONFLICT, "Duplicated data", ex);
