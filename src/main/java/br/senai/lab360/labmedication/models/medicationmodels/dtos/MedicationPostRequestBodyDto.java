@@ -1,14 +1,12 @@
 package br.senai.lab360.labmedication.models.medicationmodels.dtos;
 
-import jakarta.persistence.Column;
+import lombok.Data;
 
-import java.sql.Timestamp;
-import java.util.Date;
+@Data
+public class MedicationPostRequestBodyDto {
+    private Long id;
 
-public class MedicationPostRequestDto {
     private String medicineName;
-
-    private Date administrationTimeLog;
 
     private String type;
 
@@ -18,7 +16,5 @@ public class MedicationPostRequestDto {
 
     private String notes;
 
-    private Long idPatient;
-
-    private Long idMd;
+//    private Long idPatient;
 }
