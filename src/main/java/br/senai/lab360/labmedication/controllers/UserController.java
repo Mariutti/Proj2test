@@ -30,7 +30,7 @@ public class UserController {
             return new ResponseEntity<UserResponseBodyDto>(userService.save(userPostRequestBodyDto), HttpStatus.CREATED);
         } catch (DataIntegrityViolationException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.CONFLICT, "Duplicated data", ex);
+                    HttpStatus.CONFLICT, "Duplicated data: CPF already exists", ex);
         } catch (ConstraintViolationException ex) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Invalid data", ex);
@@ -46,10 +46,10 @@ public class UserController {
                     replaceUserData(id, userPutRequestBodyDto), HttpStatus.OK);
         } catch (DataIntegrityViolationException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.CONFLICT, "Duplicated data", ex);
+                    HttpStatus.CONFLICT, "Duplicated data: CPF already exists", ex);
         } catch (ConstraintViolationException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Invalid!@ data", ex);
+                    HttpStatus.BAD_REQUEST, "Invalid data", ex);
         }
     }
 
@@ -68,6 +68,7 @@ public class UserController {
         }
     }
 
+//  extra endpoints:
     @GetMapping
     public List<UserResponseBodyDto> listAllUsers() {
         return userService.findAll();

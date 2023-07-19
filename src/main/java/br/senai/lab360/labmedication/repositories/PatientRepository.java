@@ -1,5 +1,7 @@
 package br.senai.lab360.labmedication.repositories;
 
+import br.senai.lab360.labmedication.models.medicationmodels.Medication;
+import br.senai.lab360.labmedication.models.medicationmodels.dtos.MedicationResponseDto;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +17,9 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
             nativeQuery = true
     )
     List<Patient> findAllByName(String name);
+
+
+    @Query(value = "SELECT * FROM MEDICATIONS M WHERE M.PATIENT_ID = :id",
+    nativeQuery = true)
+    List<Medication> listMedications(Long id);
 }

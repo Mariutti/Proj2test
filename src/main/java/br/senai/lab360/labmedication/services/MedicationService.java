@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,20 +30,27 @@ public class MedicationService {
         Medication medication = mapper.map(medicationPostRequestBodyDto);
         medication.setAdministrationTimeLog(LocalDateTime.now());
         Medication response = medicationRepository.save(medication);
-        MedicationResponseDto responseDto = mapper.mapToMedicationPutResponseBodyDto(response);
+        MedicationResponseDto responseDto = mapper.mapToMedicationResponseDto(response);
         responseDto.setPatientIdDto(pMapper.mapToPatientIdDto(response.getPatient()));
         responseDto.setUserIdDto(uMapper.mapToUserIdDto(response.getUser()));
 
         return responseDto;
     }
 
-    public List<Medication> listMedications() {
-        return medicationRepository.findAll();
+    public List<MedicationResponseDto> listMedications() {
+        return medicationRepository.findAll()
+                .stream()
+                .map(mapper::mapToMedicationResponseDto)
+                .collect(Collectors.toList());
     }
 
     public Medication findByIdOrThrowNotFoundException(Long id) {
         return medicationRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Medication not found"));
+    }
+
+    public MedicationResponseDto findMedicationByIdToDto(Long id){
+        return mapper.mapToMedicationResponseDto(findByIdOrThrowNotFoundException(id));
     }
 
     public MedicationResponseDto replaceMedicationData(Long id,
@@ -55,7 +63,7 @@ public class MedicationService {
         medicationRepository.save(medicationToSave);
 
         return mapper
-                .mapToMedicationPutResponseBodyDto(findByIdOrThrowNotFoundException(id));
+                .mapToMedicationResponseDto(findByIdOrThrowNotFoundException(id));
     }
 
     public void deleteMedicationById(Long id) {

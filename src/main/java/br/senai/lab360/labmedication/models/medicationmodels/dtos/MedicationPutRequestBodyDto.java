@@ -15,9 +15,7 @@ public class MedicationPutRequestBodyDto {
 
     private String notes;
 
-
     private Patient patient;
-
 
     private User user;
 

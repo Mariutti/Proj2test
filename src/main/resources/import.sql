@@ -1,3 +1,4 @@
+--TODO: criar pelo menos 2 registros de médicos
 INSERT INTO USERS(birthdate, birthplace, complete_name, cpf, crm, email, gender, marital_status, medical_specialty,password,phone_number, rg)VALUES ('15/04/1998', 'Lugar 01','FULANO 1', '11111111111', '0001', 'email01@email', 'genero','estado_civil', 'especialidade 01', 'senha123', '555-7777', 'gr1435rg')
 INSERT INTO USERS(birthdate, birthplace, complete_name, cpf, crm, email, gender, marital_status, medical_specialty,password,phone_number, rg)VALUES ('15/04/1998', 'Lugar 01','FULANO 2', '22222222222', '0002', 'email02@email', 'genero','estado_civil', 'especialidade 01', 'senha123', '555-7777', 'gr1435rg')
 INSERT INTO USERS(birthdate, birthplace, complete_name, cpf, crm, email, gender, marital_status, medical_specialty,password,phone_number, rg)VALUES ('15/04/1998', 'Lugar 01','FULANO 3', '33333333333', '0003', 'email03@email', 'genero','estado_civil', 'especialidade 01', 'senha123', '555-7777', 'gr1435rg')
@@ -7,19 +8,19 @@ INSERT INTO USERS(birthdate, birthplace, complete_name, cpf, crm, email, gender,
 INSERT INTO USERS(birthdate, birthplace, complete_name, cpf, crm, email, gender, marital_status, medical_specialty,password,phone_number, rg)VALUES ('15/04/1998', 'Lugar 01','FULANO 7', '77777777777', '0007', 'email07@email', 'genero','estado_civil', 'especialidade 01', 'senha123', '555-7777', 'gr1435rg')
 INSERT INTO USERS(birthdate, birthplace, complete_name, cpf, crm, email, gender, marital_status, medical_specialty,password,phone_number, rg)VALUES ('15/04/1998', 'Lugar 01','FULANO 8', '88888888888', '0008', 'email08@email', 'genero','estado_civil', 'especialidade 01', 'senha123', '555-7777', 'gr1435rg')
 
-
+--TODO: criar pelo menos 10 registros de endereços
 INSERT INTO ADRESSES(additional_address_details,city,district,landmark,number,state,street,zipcode)VALUES('Complemento', 'Floripa', 'Bairro', 'Referencia', 12345, 'SC', 'Rua das Margaridas', '50000-000')
 INSERT INTO ADRESSES(additional_address_details,city,district,landmark,number,state,street,zipcode)VALUES('Complemento', 'Floripa', 'Bairro', 'Referencia', 12345, 'SC', 'Rua das Margaridas', '50000-000')
 INSERT INTO ADRESSES(additional_address_details,city,district,landmark,number,state,street,zipcode)VALUES('Complemento', 'Floripa', 'Bairro', 'Referencia', 12345, 'SC', 'Rua das Margaridas', '50000-000')
 INSERT INTO ADRESSES(additional_address_details,city,district,landmark,number,state,street,zipcode)VALUES('Complemento', 'Floripa', 'Bairro', 'Referencia', 12345, 'SC', 'Rua das Margaridas', '50000-000')
 INSERT INTO ADRESSES(additional_address_details,city,district,landmark,number,state,street,zipcode)VALUES('Complemento', 'Floripa', 'Bairro', 'Referencia', 12345, 'SC', 'Rua das Margaridas', '50000-000')
 
-INSERT INTO PATIENTS(birthdate, birthplace, complete_name, cpf, email, gender, marital_status, phone_number, rg, address_id)VALUES('15/04/1998', 'Lugar 01','PATIENT 01', '11111111111', 'email01@email', 'genero','estado_civil', '555-7777', 'gr1435rg', 1)
-INSERT INTO PATIENTS(birthdate, birthplace, complete_name, cpf, email, gender, marital_status, phone_number, rg, address_id)VALUES('15/04/1998', 'Lugar 02','PATIENT 02', '22222222222', 'email02@email', 'genero','estado_civil', '555-7777', 'gr1435rg', 2)
-INSERT INTO PATIENTS(birthdate, birthplace, complete_name, cpf, email, gender, marital_status, phone_number, rg, address_id)VALUES('15/04/1998', 'Lugar 01','PATIENT 03', '33333333333', 'email03@email', 'genero','estado_civil', '555-7777', 'gr1435rg', 3)
+--TODO: criar pelo menos 6 registros de pacientes
+INSERT INTO PATIENTS(birthdate, birthplace, complete_name, cpf, email, gender, marital_status, phone_number, rg, address_id, emergency_contact)VALUES('15/04/1998', 'Lugar 01','PATIENT 01', '11111111111', 'email01@email', 'genero','estado_civil', '555-7777', 'gr1435rg', 1, '555-7777')
+INSERT INTO PATIENTS(birthdate, birthplace, complete_name, cpf, email, gender, marital_status, phone_number, rg, address_id, emergency_contact)VALUES('15/04/1998', 'Lugar 02','PATIENT 02', '22222222222', 'email02@email', 'genero','estado_civil', '555-7777', 'gr1435rg', 2, '555-7777')
+INSERT INTO PATIENTS(birthdate, birthplace, complete_name, cpf, email, gender, marital_status, phone_number, rg, address_id, emergency_contact)VALUES('15/04/1998', 'Lugar 01','PATIENT 03', '33333333333', 'email03@email', 'genero','estado_civil', '555-7777', 'gr1435rg', 3, '555-7777')
 
-
-
+--TODO: criar pelo menos 8 registros de medicações
 INSERT INTO MEDICATIONS(administration_time_log,medicine_name,notes,patient_id,quantity,type,unity_measure,user_id)VALUES('2023-07-19 12:05:30.823664', 'Nome do medicamento', 'Observações', 1, 15, 'Pills', 'mg', 1)
 INSERT INTO MEDICATIONS(administration_time_log,medicine_name,notes,patient_id,quantity,type,unity_measure,user_id)VALUES('2023-07-19 12:05:30.823664', 'Nome do medicamento', 'Observações', 1, 15, 'Pills', 'mg', 2)
 INSERT INTO MEDICATIONS(administration_time_log,medicine_name,notes,patient_id,quantity,type,unity_measure,user_id)VALUES('2023-07-19 12:05:30.823664', 'Nome do medicamento', 'Observações', 2, 15, 'Pills', 'mg', 2)

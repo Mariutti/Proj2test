@@ -22,7 +22,7 @@ import java.util.List;
 @SuperBuilder
 public class Patient extends Person {
 
-    @Column
+    @Column(nullable = false)
     private String emergencyContact;
 
     @Column

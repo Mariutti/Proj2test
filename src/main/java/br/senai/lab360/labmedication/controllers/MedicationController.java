@@ -1,6 +1,5 @@
 package br.senai.lab360.labmedication.controllers;
 
-import br.senai.lab360.labmedication.models.medicationmodels.Medication;
 import br.senai.lab360.labmedication.models.medicationmodels.dtos.MedicationPostRequestBodyDto;
 import br.senai.lab360.labmedication.models.medicationmodels.dtos.MedicationPutRequestBodyDto;
 import br.senai.lab360.labmedication.models.medicationmodels.dtos.MedicationResponseDto;
@@ -52,13 +51,13 @@ public class MedicationController {
     }
 
     @GetMapping
-    public List<Medication> listMedications() {
+    public List<MedicationResponseDto> listMedications() {
         return medicationService.listMedications();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Medication> showMedicationById(@PathVariable Long id) {
-        return ResponseEntity.ok(medicationService.findByIdOrThrowNotFoundException(id));
+    public ResponseEntity<MedicationResponseDto> showMedicationById(@PathVariable Long id) {
+        return ResponseEntity.ok(medicationService.findMedicationByIdToDto(id));
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

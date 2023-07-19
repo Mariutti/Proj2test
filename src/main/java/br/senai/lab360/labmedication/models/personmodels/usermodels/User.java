@@ -21,7 +21,7 @@ import lombok.experimental.SuperBuilder;
 public class User extends Person{
 
 
-        @Column(unique=true, nullable = false)
+        @Column(nullable = false)
         private String crm;
         @Column(nullable = false)
         private String medicalSpecialty;
