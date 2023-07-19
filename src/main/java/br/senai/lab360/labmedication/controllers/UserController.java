@@ -4,6 +4,7 @@ import br.senai.lab360.labmedication.models.personmodels.usermodels.User;
 import br.senai.lab360.labmedication.models.personmodels.usermodels.dtos.UserPatchPwdRequestDto;
 import br.senai.lab360.labmedication.models.personmodels.usermodels.dtos.UserPostRequestBodyDto;
 import br.senai.lab360.labmedication.models.personmodels.usermodels.dtos.UserPutRequestBodyDto;
+import br.senai.lab360.labmedication.models.personmodels.usermodels.dtos.UserResponseBodyDto;
 import br.senai.lab360.labmedication.services.UserService;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
@@ -24,9 +25,9 @@ public class UserController {
 
 //  S01
     @PostMapping
-    public ResponseEntity<User> saveUser(@RequestBody @Valid UserPostRequestBodyDto userPostRequestBodyDto) {
+    public ResponseEntity<UserResponseBodyDto> saveUser(@RequestBody @Valid UserPostRequestBodyDto userPostRequestBodyDto) {
         try {
-            return new ResponseEntity<User>(userService.save(userPostRequestBodyDto), HttpStatus.CREATED);
+            return new ResponseEntity<UserResponseBodyDto>(userService.save(userPostRequestBodyDto), HttpStatus.CREATED);
         } catch (DataIntegrityViolationException ex) {
             throw new ResponseStatusException(
                     HttpStatus.CONFLICT, "Duplicated data", ex);
@@ -38,10 +39,10 @@ public class UserController {
 
 //  S02
     @PutMapping("/{id}")
-    public ResponseEntity<UserPutRequestBodyDto> replaceUserData(
+    public ResponseEntity<UserResponseBodyDto> replaceUserData(
             @PathVariable Long id, @RequestBody @Valid UserPutRequestBodyDto userPutRequestBodyDto) {
         try {
-            return new ResponseEntity<UserPutRequestBodyDto>(userService.
+            return new ResponseEntity<UserResponseBodyDto>(userService.
                     replaceUserData(id, userPutRequestBodyDto), HttpStatus.OK);
         } catch (DataIntegrityViolationException ex) {
             throw new ResponseStatusException(
@@ -54,11 +55,11 @@ public class UserController {
 
 //  S03
     @PatchMapping("/{id}/password")
-    public ResponseEntity<UserPostRequestBodyDto> replacePwd(
+    public ResponseEntity<UserResponseBodyDto> replacePwd(
             @PathVariable Long id, @RequestBody @Valid UserPatchPwdRequestDto userPatchPwdRequestDto){
 
         try {
-            return new ResponseEntity<UserPostRequestBodyDto>(userService.
+            return new ResponseEntity<UserResponseBodyDto>(userService.
                     replacePwd(id, userPatchPwdRequestDto), HttpStatus.OK);
 
         } catch (ConstraintViolationException ex) {
@@ -68,13 +69,13 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> listAllUsers() {
+    public List<UserResponseBodyDto> listAllUsers() {
         return userService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> findUserById(@PathVariable Long id) {
-            return ResponseEntity.ok(userService.findByIdOrThrowNotFoundException(id));
+    public ResponseEntity<UserResponseBodyDto> findUserById(@PathVariable Long id) {
+            return ResponseEntity.ok(userService.findUsersByIdToDto(id));
 
     }
 

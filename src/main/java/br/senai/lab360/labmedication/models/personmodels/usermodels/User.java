@@ -29,8 +29,8 @@ public class User extends Person{
         @Size(min = 8)
         private String password;
     }
-//TODO método Put
-//TODO S02 - Atualização dos dados de Usuários (Médicos)
+//método Put
+//S02 - Atualização dos dados de Usuários (Médicos)
 //● Serviço para alterar/atualizar os dados de determinado usuário.
 //● O usuário do sistema poderá alterar sempre que necessário.
 //● A senha não deve ser atualizada

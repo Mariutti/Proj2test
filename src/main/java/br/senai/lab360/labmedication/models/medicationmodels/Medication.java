@@ -34,7 +34,6 @@ public class Medication {
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime administrationTimeLog;
-//            = LocalDateTime.now();
 
     @Column
     private String type;
@@ -48,12 +47,12 @@ public class Medication {
     @Column
     private String notes;
 
-    @OneToOne
-    @JoinColumn(name = "patient_id")
+    @ManyToOne
+    @JoinColumn(name = "patient_id", unique = false)
     private Patient patient;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", unique = false)
     private User user;
 
 }

@@ -5,45 +5,26 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 @Data
-public class UserPostRequestBodyDto {
-    @NotBlank
-    private String completeName;
+public class UserResponseBodyDto {
 
-    @NotBlank
+    private Long id;
+    private String completeName;
     private String gender;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @NotNull
-    private LocalDate birthdate;
+    private Date birthdate;
 
-    @NotBlank
     private String cpf;
 
-    @NotBlank
     private String rg;
-
-    @NotBlank
     public String maritalStatus;
-
-    @NotBlank
     public String phoneNumber;
-
-    @NotBlank
     public String email;
-
-    @NotBlank
     public String birthplace;
-
-    @NotBlank
     private String crm;
-
-    @NotBlank
     private String medicalSpecialty;
 
-    @NotBlank
-    private String password;
 }
