@@ -18,6 +18,6 @@ public interface PatientMapper {
 
     PatientIdDto mapToPatientIdDto(Patient source);
 
-    PatientDataInfoRespondeDto mapToPatientDataInfoRespondeDto(PatientResponseBodyDto source);
-    PatientDataInfoRespondeDto mapToPatientDataInfoRespondeDto(Patient source);
+    PatientDataInfoResponseDto mapToPatientDataInfoRespondeDto(PatientResponseBodyDto source);
+    PatientDataInfoResponseDto mapToPatientDataInfoRespondeDto(Patient source);
 }

@@ -9,22 +9,22 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PatientRepository extends JpaRepository<Patient, Long> {
+public interface DataInfoRepository extends JpaRepository<PatientDataInfoResponseDto, Long> {
 
-    @Query(
-            value = "SELECT * FROM PATIENTS p WHERE p.complete_name ilike %?1%",
-            nativeQuery = true
-    )
-    List<Patient> findAllByName(String name);
+//     @Query(
+//             value = "SELECT * FROM PATIENTS p WHERE p.complete_name ilike %?1%",
+//             nativeQuery = true
+//     )
+//     List<Patient> findAllByName(String name);
 
 
-    @Query(
-            value =
-            "SELECT PATIENTS.* FROM PATIENTS LEFT JOIN MEDICATIONS ON MEDICATIONS.PATIENT_ID = :id GROUP BY PATIENTS.ID"
-            ,
-            nativeQuery = true
-    )
-    List<Patient> findAllIdMedications(Long id);
+//     @Query(
+//             value =
+//             "SELECT PATIENTS.* FROM PATIENTS LEFT JOIN MEDICATIONS ON MEDICATIONS.PATIENT_ID = :id GROUP BY PATIENTS.ID"
+//             ,
+//             nativeQuery = true
+//     )
+//     List<Patient> findAllIdMedications(Long id);
 
     @Query(
             value =

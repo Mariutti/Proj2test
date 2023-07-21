@@ -4,10 +4,11 @@ import br.senai.lab360.labmedication.mappers.AdressMapper;
 import br.senai.lab360.labmedication.mappers.PatientMapper;
 import br.senai.lab360.labmedication.models.adressmodels.dtos.AddressIdDto;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.Patient;
-import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientDataInfoRespondeDto;
+import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientDataInfoResponseDto;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPostRequestBodyDto;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientResponseBodyDto;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPutRequestBodyDto;
+import br.senai.lab360.labmedication.repositories.DataInfoRepository;
 import br.senai.lab360.labmedication.repositories.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -92,9 +93,9 @@ public class PatientService {
         patientRepository.delete(patientToDelete);
     }
 
-    public List<PatientDataInfoRespondeDto> getDataInfo() {
+    public List<PatientDataInfoResponseDto> getDataInfo() {
 
-        List<PatientDataInfoRespondeDto> result = patientRepository.getDataInfo();
+        List<PatientDataInfoResponseDto> result = patientRepository.getDataInfo();
 //        List<PatientDataInfoRespondeDto> response = result.stream().map(
 //                (patient) -> {
 //                    PatientDataInfoRespondeDto responseDto = patientMapper.mapToPatientDataInfoRespondeDto(patient);

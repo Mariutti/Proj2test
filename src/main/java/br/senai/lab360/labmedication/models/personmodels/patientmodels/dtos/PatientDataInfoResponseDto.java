@@ -3,10 +3,10 @@ package br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos;
 import lombok.Data;
 
 @Data
-public class PatientDataInfoRespondeDto {
+public class PatientDataInfoResponseDto {
 
     private Long id;
 
-    private int totalMedication;
+    private int count;
 
 }
