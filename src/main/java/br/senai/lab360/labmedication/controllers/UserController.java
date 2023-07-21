@@ -1,6 +1,5 @@
 package br.senai.lab360.labmedication.controllers;
 
-import br.senai.lab360.labmedication.models.personmodels.usermodels.User;
 import br.senai.lab360.labmedication.models.personmodels.usermodels.dtos.UserPatchPwdRequestDto;
 import br.senai.lab360.labmedication.models.personmodels.usermodels.dtos.UserPostRequestBodyDto;
 import br.senai.lab360.labmedication.models.personmodels.usermodels.dtos.UserPutRequestBodyDto;

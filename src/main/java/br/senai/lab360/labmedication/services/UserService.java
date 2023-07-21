@@ -36,7 +36,11 @@ public class UserService {
 
     //  S01
     public UserResponseBodyDto save(UserPostRequestBodyDto userPostRequestBodyDto) {
-        UserResponseBodyDto urd = mapper.mapToUserResponseBodyDto(userRepository.save(mapper.map(userPostRequestBodyDto)));
+        UserResponseBodyDto urd = mapper.mapToUserResponseBodyDto(
+                userRepository.save(
+                        mapper.map(userPostRequestBodyDto)
+                )
+        );
         return urd;
     }
 

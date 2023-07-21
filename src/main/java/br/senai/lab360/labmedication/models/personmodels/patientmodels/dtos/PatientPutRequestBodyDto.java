@@ -1,5 +1,6 @@
 package br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos;
 
+import br.senai.lab360.labmedication.models.adressmodels.Address;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Temporal;
@@ -55,5 +56,5 @@ public class PatientPutRequestBodyDto {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date healthCareExpiration;
 
-    private String adress;
+    private Address address;
 }

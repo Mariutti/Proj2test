@@ -1,14 +1,13 @@
 package br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos;
 
-import br.senai.lab360.labmedication.models.adressmodels.Address;
-import br.senai.lab360.labmedication.models.adressmodels.dtos.AddressIdDto;
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import br.senai.lab360.labmedication.models.adressmodels.Address;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
-import java.util.Date;
-import java.util.List;
 
 @Data
 
@@ -23,7 +22,7 @@ public class PatientPostRequestBodyDto {
 
     @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date birthdate;
+    private LocalDate birthdate;
 
     @NotBlank
     private String cpf;
@@ -54,7 +53,7 @@ public class PatientPostRequestBodyDto {
 
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date healthCareExpiration;
+    private LocalDate healthCareExpiration;
 
     private Address address;
 }

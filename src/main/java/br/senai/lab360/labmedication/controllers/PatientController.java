@@ -1,16 +1,12 @@
 package br.senai.lab360.labmedication.controllers;
 
-import br.senai.lab360.labmedication.models.medicationmodels.dtos.MedicationResponseDto;
-import br.senai.lab360.labmedication.models.personmodels.patientmodels.Patient;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPostRequestBodyDto;
-import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientResponseBodyDto;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPutRequestBodyDto;
+import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientResponseBodyDto;
 import br.senai.lab360.labmedication.services.PatientService;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
-import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,8 +54,8 @@ public class PatientController {
 
     //  S06
     @GetMapping
-    public List<PatientResponseBodyDto> getPatients(@RequestParam(required = false, name = "name") String name) {
-        return patientService.findAllByName(name);
+    public ResponseEntity<List<PatientResponseBodyDto>> getPatients(@RequestParam(required = false, name = "name") String name) {
+            return ResponseEntity.ok(patientService.findAllByName(name));
     }
 
     //  S07

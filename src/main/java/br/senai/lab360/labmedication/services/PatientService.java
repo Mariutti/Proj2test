@@ -1,13 +1,10 @@
 package br.senai.lab360.labmedication.services;
 
 import br.senai.lab360.labmedication.mappers.AdressMapper;
-import br.senai.lab360.labmedication.mappers.MedicationMapper;
 import br.senai.lab360.labmedication.mappers.PatientMapper;
-import br.senai.lab360.labmedication.mappers.UserMapper;
 import br.senai.lab360.labmedication.models.adressmodels.dtos.AddressIdDto;
-import br.senai.lab360.labmedication.models.medicationmodels.Medication;
-import br.senai.lab360.labmedication.models.medicationmodels.dtos.MedicationResponseDto;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.Patient;
+import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientDataInfoRespondeDto;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPostRequestBodyDto;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientResponseBodyDto;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPutRequestBodyDto;
@@ -38,12 +35,13 @@ public class PatientService {
     //  S04
     public PatientResponseBodyDto savePatient(PatientPostRequestBodyDto patientPostRequestBodyDto) {
 
-        Patient savedPatient = patientRepository.save(patientMapper.map((patientPostRequestBodyDto)));
-        AddressIdDto addressIdDto = adressMapper.mapToAddressIdDto(savedPatient.getAddress());
-        PatientResponseBodyDto response = patientMapper.mapToPatientResponseBodyDto(savedPatient);
-        response.setAddress(addressIdDto);
+        Patient patientToSave = patientMapper.map(patientPostRequestBodyDto);
+        PatientResponseBodyDto patienteSaved = patientMapper
+                .mapToPatientResponseBodyDto(patientRepository.save(patientToSave));
+        AddressIdDto addressIdDto = adressMapper.mapToAddressIdDto(patientPostRequestBodyDto.getAddress());
+        patienteSaved.setAddress(addressIdDto);
 
-        return response;
+        return patienteSaved;
     }
 
     public Patient findByIdOrThrowNotFoundException(Long id) {
@@ -61,32 +59,55 @@ public class PatientService {
         Patient savedPatient = findByIdOrThrowNotFoundException(id);
         Patient patient = patientMapper.map(patientPutRequestBodyDto);
         patient.setId(id);
-//        patientRepository.save(patient);
 
         return patientMapper.mapToPatientResponseBodyDto(patientRepository.save(patient));
-
     }
 
     public List<PatientResponseBodyDto> findAllByName(String name) {
         if (name != null) {
-            List<Patient> patients = patientRepository.findAllByName(name);
-            return patients
+            List<Patient> patientList = patientRepository.findAllByName(name);
+            if (patientList == null || patientList.size() == 0) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There are no Pacient with " + name +
+                        " in their name");
+            }
+            return patientList
                     .stream()
                     .map(patientMapper::mapToPatientResponseBodyDto).collect(Collectors.toList());
         }
-        return patientRepository.findAll()
+        List<PatientResponseBodyDto> patientList = patientRepository.findAll()
                 .stream()
-                .map(patientMapper::mapToPatientResponseBodyDto).collect(Collectors.toList());
+                .map(patientMapper::mapToPatientResponseBodyDto)
+                .collect(Collectors.toList());
+        return patientList;
     }
 
-    public void deletePatient(Long id) throws Exception{
+    private List<Patient> allMedicationsByPatient(Long id) {
+        return patientRepository.findAllIdMedications(id);
+    }
+
+    public void deletePatient(Long id) throws Exception {
         Patient patientToDelete = findByIdOrThrowNotFoundException(id);
         //TODO S08 verificar medicação administrada
+        allMedicationsByPatient(id);
+        patientRepository.delete(patientToDelete);
+    }
 
-        List<Patient> allMedicationsByPatient = patientRepository.findAllIdMedications(id);
+    public List<PatientDataInfoRespondeDto> getDataInfo() {
 
-            patientRepository.delete(patientToDelete);
-
-
+        List<PatientDataInfoRespondeDto> result = patientRepository.getDataInfo();
+//        List<PatientDataInfoRespondeDto> response = result.stream().map(
+//                (patient) -> {
+//                    PatientDataInfoRespondeDto responseDto = patientMapper.mapToPatientDataInfoRespondeDto(patient);
+//                    responseDto.setId(patient.getId());
+//                    responseDto.setTotalMedication(patient.
+//
+//                    );
+//                    return responseDto;
+//                }
+//        ).collect(Collectors.toList());
+//                patientRepository.getDataInfo();
+//
+//         patientRepository.getDataInfo();
+        return result;
     }
 }

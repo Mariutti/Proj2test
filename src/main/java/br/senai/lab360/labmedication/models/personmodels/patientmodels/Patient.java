@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -37,12 +38,12 @@ public class Patient extends Person {
     @Column
     private String healthCareIdNumb;
 
-    @Column
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date healthCareExpiration;
+    private LocalDate healthCareExpiration;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
 

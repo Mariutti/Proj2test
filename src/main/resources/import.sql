@@ -16,9 +16,9 @@ INSERT INTO ADRESSES(additional_address_details,city,district,landmark,number,st
 INSERT INTO ADRESSES(additional_address_details,city,district,landmark,number,state,street,zipcode)VALUES('Complemento', 'Floripa', 'Bairro', 'Referencia', 12345, 'SC', 'Rua das Margaridas', '50000-000')
 
 --TODO: criar pelo menos 6 registros de pacientes
-INSERT INTO PATIENTS(birthdate, birthplace, complete_name, cpf, email, gender, marital_status, phone_number, rg, address_id, emergency_contact)VALUES('15/04/1998', 'Lugar 01','PATIENT 01', '11111111111', 'email01@email', 'genero','estado_civil', '555-7777', 'gr1435rg', 1, '555-7777')
-INSERT INTO PATIENTS(birthdate, birthplace, complete_name, cpf, email, gender, marital_status, phone_number, rg, address_id, emergency_contact)VALUES('15/04/1998', 'Lugar 02','PATIENT 02', '22222222222', 'email02@email', 'genero','estado_civil', '555-7777', 'gr1435rg', 2, '555-7777')
-INSERT INTO PATIENTS(birthdate, birthplace, complete_name, cpf, email, gender, marital_status, phone_number, rg, address_id, emergency_contact)VALUES('15/04/1998', 'Lugar 01','PATIENT 03', '33333333333', 'email03@email', 'genero','estado_civil', '555-7777', 'gr1435rg', 3, '555-7777')
+INSERT INTO PATIENTS(birthdate, birthplace, complete_name, cpf, email, gender, marital_status, phone_number, rg, address_id, emergency_contact, health_care_expiration)VALUES('15/04/1998', 'Lugar 01','PATIENT 01', '11111111111', 'email01@email', 'genero','estado_civil', '555-7777', 'gr1435rg', 1, '555-7777', '25/10/2025')
+INSERT INTO PATIENTS(birthdate, birthplace, complete_name, cpf, email, gender, marital_status, phone_number, rg, address_id, emergency_contact, health_care_expiration)VALUES('15/04/1998', 'Lugar 02','PATIENT 02', '22222222222', 'email02@email', 'genero','estado_civil', '555-7777', 'gr1435rg', 2, '555-7777', '10/03/2028')
+INSERT INTO PATIENTS(birthdate, birthplace, complete_name, cpf, email, gender, marital_status, phone_number, rg, address_id, emergency_contact, health_care_expiration)VALUES('15/04/1998', 'Lugar 01','PATIENT 03', '33333333333', 'email03@email', 'genero','estado_civil', '555-7777', 'gr1435rg', 3, '555-7777', '05/07/2024')
 
 --TODO: criar pelo menos 8 registros de medicações
 INSERT INTO MEDICATIONS(administration_time_log,medicine_name,notes,patient_id,quantity,type,unity_measure,user_id)VALUES('2023-07-19 12:05:30.823664', 'Nome do medicamento', 'Observações', 1, 15, 'Pills', 'mg', 1)
