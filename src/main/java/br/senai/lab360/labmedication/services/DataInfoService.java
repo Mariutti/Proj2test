@@ -1,39 +1,19 @@
 package br.senai.lab360.labmedication.services;
 
-import java.util.List;
-
+import br.senai.lab360.labmedication.models.personmodels.patientmodels.PatientDataInfoResponse;
+import br.senai.lab360.labmedication.repositories.DataInfoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.senai.lab360.labmedication.mappers.PatientMapper;
-import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientDataInfoResponseDto;
-import br.senai.lab360.labmedication.repositories.DataInfoRepository;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class DataInfoService {
 
-    private final DataInfoRepository dataInfoRepository;
-    private final PatientMapper patientMapper;
+    @Autowired
+    DataInfoRepository dataInfoRepository;
 
-    
-
-    public List<PatientDataInfoResponseDto> getDataInfo() {
-
-        List<PatientDataInfoResponseDto> result = dataInfoRepository.getDataInfo();
-//        List<PatientDataInfoRespondeDto> response = result.stream().map(
-//                (patient) -> {
-//                    PatientDataInfoRespondeDto responseDto = patientMapper.mapToPatientDataInfoRespondeDto(patient);
-//                    responseDto.setId(patient.getId());
-//                    responseDto.setTotalMedication(patient.
-//
-//                    );
-//                    return responseDto;
-//                }
-//        ).collect(Collectors.toList());
-//                patientRepository.getDataInfo();
-//
-//         patientRepository.getDataInfo();
-        return result;
+    public List<PatientDataInfoResponse> getDataInfo() {
+        return dataInfoRepository.getDataInfo();
     }
 }

@@ -1,7 +1,6 @@
 package br.senai.lab360.labmedication.controllers;
 
-import br.senai.lab360.labmedication.models.personmodels.patientmodels.Patient;
-import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientDataInfoResponseDto;
+import br.senai.lab360.labmedication.models.personmodels.patientmodels.PatientDataInfoResponse;
 import br.senai.lab360.labmedication.services.DataInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,7 @@ public class DataInfoController {
     DataInfoService dataInfoService;
 
     @GetMapping
-    public List<PatientDataInfoResponseDto> getDataInfo(){
+    public List<PatientDataInfoResponse> getDataInfo(){
         return dataInfoService.getDataInfo();
     }
 }

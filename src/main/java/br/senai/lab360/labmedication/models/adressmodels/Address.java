@@ -1,6 +1,5 @@
 package br.senai.lab360.labmedication.models.adressmodels;
 
-import br.senai.lab360.labmedication.models.personmodels.patientmodels.Patient;
 import jakarta.persistence.*;
 import lombok.*;
 

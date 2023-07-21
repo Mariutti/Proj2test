@@ -3,7 +3,6 @@ package br.senai.lab360.labmedication.controllers;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPostRequestBodyDto;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPutRequestBodyDto;
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientResponseBodyDto;
-import br.senai.lab360.labmedication.services.DataInfoService;
 import br.senai.lab360.labmedication.services.PatientService;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
