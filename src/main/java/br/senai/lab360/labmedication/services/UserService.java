@@ -8,6 +8,7 @@ import br.senai.lab360.labmedication.models.personmodels.usermodels.dtos.UserPos
 import br.senai.lab360.labmedication.models.personmodels.usermodels.dtos.UserPutRequestBodyDto;
 import br.senai.lab360.labmedication.models.personmodels.usermodels.dtos.UserResponseBodyDto;
 import br.senai.lab360.labmedication.repositories.UserRepository;
+import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -61,13 +62,10 @@ public class UserService {
     }
 
     //  S03
-    public UserResponseBodyDto replacePwd(Long id, UserPatchPwdRequestDto userPatchPwdRequestDto) {
+    public UserResponseBodyDto replacePwd(Long id, UserPatchPwdRequestDto userPatchPwdRequestDto) throws ConstraintViolationException {
         User savedUserPwd = findByIdOrThrowNotFoundException(id);
-        if (userPatchPwdRequestDto.getOldPwd() == null
-                || savedUserPwd.getPassword().equals(userPatchPwdRequestDto.getOldPwd())
-                || savedUserPwd.getPassword().isEmpty()
-                || savedUserPwd.getPassword().isBlank()
-        ) {
+        if (userPatchPwdRequestDto.getOldPwd().equals(savedUserPwd.getPassword()))
+        {
             savedUserPwd.setPassword(userPatchPwdRequestDto.getNewPwd());
             return mapper.mapToUserResponseBodyDto(userRepository.save(savedUserPwd));
         } else {

@@ -16,6 +16,9 @@ public class PatientResponseBodyDto {
 
     // inheritance from Person
     @NotBlank
+    private Long id;
+
+    @NotBlank
     private String completeName;
     @NotBlank
     private String gender;

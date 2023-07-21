@@ -68,10 +68,6 @@ public class PatientController {
         return ResponseEntity.ok(patientService.findPatientByIdToDto(id));
     }
 
-//    @GetMapping("/{id}/medications")
-//    public List<MedicationResponseDto> findMedications(@PathVariable Long id){
-//        return patientService.findMedicationsForPatient(id);
-//    }
 
     //  S08
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -79,10 +75,8 @@ public class PatientController {
     public void deletePatient(@PathVariable Long id) {
         try {
             patientService.deletePatient(id);
-        }catch (ResponseStatusException ex)
-        {throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found", ex);
-//        }catch (JDBCConnectionException ex){
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Patient cannot be deleted", ex);
+        } catch (ResponseStatusException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found", ex);
         } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Patient cannot be deleted", ex);
         }

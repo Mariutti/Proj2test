@@ -85,7 +85,6 @@ public class PatientService {
 
         List<Patient> allMedicationsByPatient = patientRepository.findAllIdMedications(id);
 
-//        if (allMedicationsByPatient.size() == 0) {
             patientRepository.delete(patientToDelete);
 
 

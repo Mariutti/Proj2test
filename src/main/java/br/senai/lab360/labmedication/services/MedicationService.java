@@ -25,13 +25,13 @@ public class MedicationService {
     private final MedicationMapper mapper;
     private final UserMapper uMapper;
     private final PatientMapper pMapper;
+    private final PatientService patientService;
 
     public MedicationResponseDto saveMedication(MedicationPostRequestBodyDto medicationPostRequestBodyDto) {
         Medication medication = mapper.map(medicationPostRequestBodyDto);
         medication.setAdministrationTimeLog(LocalDateTime.now());
-        Medication response = medicationRepository.save(medication);
 
-        return convertUserAndPatient(response);
+        return convertUserAndPatient(medicationRepository.save(medication));
     }
 
     public List<MedicationResponseDto> listMedications() {
@@ -46,10 +46,7 @@ public class MedicationService {
     }
 
     public MedicationResponseDto findMedicationByIdToDto(Long id) {
-        MedicationResponseDto responseDto = mapper.mapToMedicationResponseDto(findByIdOrThrowNotFoundException(id));
-
-        Medication medicationFounded = findByIdOrThrowNotFoundException(id);
-        return convertUserAndPatient(medicationFounded);
+        return convertUserAndPatient(findByIdOrThrowNotFoundException(id));
     }
 
     private MedicationResponseDto convertUserAndPatient(Medication medicationFounded) {
@@ -68,8 +65,7 @@ public class MedicationService {
         medicationToSave.setAdministrationTimeLog(savedMedication.getAdministrationTimeLog());
         medicationRepository.save(medicationToSave);
 
-        Medication medicationFounded = findByIdOrThrowNotFoundException(id);
-        return convertUserAndPatient(medicationFounded);
+        return convertUserAndPatient(findByIdOrThrowNotFoundException(id));
     }
 
     public void deleteMedicationById(Long id) {
@@ -79,6 +75,8 @@ public class MedicationService {
     public List<MedicationResponseDto> findMedicationsByPatient(Long id) {
         List<Medication> responses = medicationRepository.findAllByUserId(id);
 
+        patientService.findByIdOrThrowNotFoundException(id);
+        
         if(responses == null || responses.size() == 0) {
 
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pacient with ID: " + id +" has no medications " +
