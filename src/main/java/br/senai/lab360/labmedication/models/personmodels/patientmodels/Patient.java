@@ -26,10 +26,10 @@ public class Patient extends Person {
     private String emergencyContact;
 
     @Column
-    private List<String> allergies;
+    private String allergies;
 
     @Column
-    private List<String> especificCares;
+    private String especificCares;
 
     @Column
     private String healthCare;

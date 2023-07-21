@@ -19,7 +19,12 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     List<Patient> findAllByName(String name);
 
 
-    @Query(value = "SELECT * FROM MEDICATIONS M WHERE M.PATIENT_ID = :id",
-    nativeQuery = true)
-    List<Medication> listMedications(Long id);
+    @Query(
+            value =
+//                    "SELECT * FROM PATIENTS LEFT JOIN MEDICATIONS ON MEDICATIONS.PATIENT_ID = :id"
+            "SELECT PATIENTS.* FROM PATIENTS LEFT JOIN MEDICATIONS ON MEDICATIONS.PATIENT_ID = :id GROUP BY PATIENTS.ID"
+            ,
+            nativeQuery = true
+    )
+    List<Patient> findAllIdMedications(Long id);
 }

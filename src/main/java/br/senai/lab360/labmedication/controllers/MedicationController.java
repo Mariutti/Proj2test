@@ -60,6 +60,11 @@ public class MedicationController {
         return ResponseEntity.ok(medicationService.findMedicationByIdToDto(id));
     }
 
+    @GetMapping("/patient/{id}")
+    public List<MedicationResponseDto> findMedications(@PathVariable Long id){
+        return medicationService.findMedicationsByPatient(id);
+    }
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deleteMedication(@PathVariable Long id){

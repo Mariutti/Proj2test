@@ -44,9 +44,9 @@ public class PatientPostRequestBodyDto {
     //atributes only for Patient
     private String emergencyContact;
 
-    private List<String> allergies;
+    private String allergies;
 
-    private List<String> especificCares;
+    private String especificCares;
 
     private String healthCare;
 

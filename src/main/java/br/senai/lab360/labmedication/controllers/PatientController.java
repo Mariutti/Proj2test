@@ -9,6 +9,8 @@ import br.senai.lab360.labmedication.services.PatientService;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
+import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,16 +68,24 @@ public class PatientController {
         return ResponseEntity.ok(patientService.findPatientByIdToDto(id));
     }
 
-    @GetMapping("/{id}/medications")
-    public List<MedicationResponseDto> findMedications(@PathVariable Long id){
-        return patientService.findMedicationsForPatient(id);
-    }
+//    @GetMapping("/{id}/medications")
+//    public List<MedicationResponseDto> findMedications(@PathVariable Long id){
+//        return patientService.findMedicationsForPatient(id);
+//    }
 
     //  S08
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deletePatient(@PathVariable Long id) {
-        patientService.deletePatient(id);
+        try {
+            patientService.deletePatient(id);
+        }catch (ResponseStatusException ex)
+        {throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found", ex);
+//        }catch (JDBCConnectionException ex){
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Patient cannot be deleted", ex);
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Patient cannot be deleted", ex);
+        }
     }
 
 }

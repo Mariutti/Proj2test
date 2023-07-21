@@ -30,18 +30,14 @@ public class MedicationService {
         Medication medication = mapper.map(medicationPostRequestBodyDto);
         medication.setAdministrationTimeLog(LocalDateTime.now());
         Medication response = medicationRepository.save(medication);
-        MedicationResponseDto responseDto = mapper.mapToMedicationResponseDto(response);
-        responseDto.setPatientIdDto(pMapper.mapToPatientIdDto(response.getPatient()));
-        responseDto.setUserIdDto(uMapper.mapToUserIdDto(response.getUser()));
 
-        return responseDto;
+        return convertUserAndPatient(response);
     }
 
     public List<MedicationResponseDto> listMedications() {
         return medicationRepository.findAll()
                 .stream()
-                .map(mapper::mapToMedicationResponseDto)
-                .collect(Collectors.toList());
+                .map(this::convertUserAndPatient).collect(Collectors.toList());
     }
 
     public Medication findByIdOrThrowNotFoundException(Long id) {
@@ -49,8 +45,18 @@ public class MedicationService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Medication not found"));
     }
 
-    public MedicationResponseDto findMedicationByIdToDto(Long id){
-        return mapper.mapToMedicationResponseDto(findByIdOrThrowNotFoundException(id));
+    public MedicationResponseDto findMedicationByIdToDto(Long id) {
+        MedicationResponseDto responseDto = mapper.mapToMedicationResponseDto(findByIdOrThrowNotFoundException(id));
+
+        Medication medicationFounded = findByIdOrThrowNotFoundException(id);
+        return convertUserAndPatient(medicationFounded);
+    }
+
+    private MedicationResponseDto convertUserAndPatient(Medication medicationFounded) {
+        MedicationResponseDto response = mapper.mapToMedicationResponseDto(medicationFounded);
+        response.setPatientIdDto(pMapper.mapToPatientIdDto(medicationFounded.getPatient()));
+        response.setUserIdDto(uMapper.mapToUserIdDto(medicationFounded.getUser()));
+        return response;
     }
 
     public MedicationResponseDto replaceMedicationData(Long id,
@@ -62,11 +68,25 @@ public class MedicationService {
         medicationToSave.setAdministrationTimeLog(savedMedication.getAdministrationTimeLog());
         medicationRepository.save(medicationToSave);
 
-        return mapper
-                .mapToMedicationResponseDto(findByIdOrThrowNotFoundException(id));
+        Medication medicationFounded = findByIdOrThrowNotFoundException(id);
+        return convertUserAndPatient(medicationFounded);
     }
 
     public void deleteMedicationById(Long id) {
         medicationRepository.delete(findByIdOrThrowNotFoundException(id));
+    }
+
+    public List<MedicationResponseDto> findMedicationsByPatient(Long id) {
+        List<Medication> responses = medicationRepository.findAllByUserId(id);
+
+        if(responses == null || responses.size() == 0) {
+
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pacient with ID: " + id +" has no medications " +
+                    "saved.");
+        }
+        else{
+            return responses.stream()
+                    .map(this::convertUserAndPatient).collect(Collectors.toList());
+        }
     }
 }
