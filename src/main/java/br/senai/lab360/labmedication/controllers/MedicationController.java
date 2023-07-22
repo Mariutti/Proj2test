@@ -24,7 +24,7 @@ public class MedicationController {
     @PostMapping
     public ResponseEntity<MedicationResponseDto> saveMedication(@RequestBody MedicationPostRequestBodyDto medicationPostRequestBodyDto) {
         try {
-            return new ResponseEntity<MedicationResponseDto>(medicationService.saveMedication(medicationPostRequestBodyDto),
+            return new ResponseEntity<>(medicationService.saveMedication(medicationPostRequestBodyDto),
                     HttpStatus.CREATED);
         } catch (DataIntegrityViolationException ex) {
             throw new ResponseStatusException(
@@ -39,7 +39,7 @@ public class MedicationController {
     public ResponseEntity<MedicationResponseDto> replaceMedicationData(
             @PathVariable Long id, @RequestBody MedicationPutRequestBodyDto medicationPutRequestBodyDto) {
         try {
-            return new ResponseEntity<MedicationResponseDto>(medicationService.
+            return new ResponseEntity<>(medicationService.
                     replaceMedicationData(id, medicationPutRequestBodyDto), HttpStatus.CREATED);
         } catch (DataIntegrityViolationException ex) {
             throw new ResponseStatusException(

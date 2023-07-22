@@ -15,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +36,7 @@ public class MedicationService {
     public List<MedicationResponseDto> listMedications() {
         return medicationRepository.findAll()
                 .stream()
-                .map(this::convertUserAndPatient).collect(Collectors.toList());
+                .map(this::convertUserAndPatient).toList();
     }
 
     public Medication findByIdOrThrowNotFoundException(Long id) {
@@ -77,14 +76,14 @@ public class MedicationService {
 
         patientService.findByIdOrThrowNotFoundException(id);
         
-        if(responses == null || responses.size() == 0) {
+        if(responses == null || responses.isEmpty()) {
 
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pacient with ID: " + id +" has no medications " +
                     "saved.");
         }
         else{
             return responses.stream()
-                    .map(this::convertUserAndPatient).collect(Collectors.toList());
+                    .map(this::convertUserAndPatient).toList();
         }
     }
 }

@@ -1,8 +1,9 @@
 package br.senai.lab360.labmedication.mappers;
 
 import br.senai.lab360.labmedication.models.medicationmodels.Medication;
-import br.senai.lab360.labmedication.models.medicationmodels.dtos.*;
-import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientMedicationResponseDto;
+import br.senai.lab360.labmedication.models.medicationmodels.dtos.MedicationPostRequestBodyDto;
+import br.senai.lab360.labmedication.models.medicationmodels.dtos.MedicationPutRequestBodyDto;
+import br.senai.lab360.labmedication.models.medicationmodels.dtos.MedicationResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -15,7 +16,5 @@ public interface MedicationMapper {
     Medication map(MedicationPutRequestBodyDto source);
 
     MedicationResponseDto mapToMedicationResponseDto(Medication source);
-
-    PatientMedicationResponseDto mapToPatientMedicationResponseDto(Medication source);
 
 }

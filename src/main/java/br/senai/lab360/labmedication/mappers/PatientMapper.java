@@ -1,8 +1,10 @@
 package br.senai.lab360.labmedication.mappers;
 
 import br.senai.lab360.labmedication.models.personmodels.patientmodels.Patient;
-import br.senai.lab360.labmedication.models.personmodels.patientmodels.PatientDataInfoResponse;
-import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.*;
+import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientIdDto;
+import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPostRequestBodyDto;
+import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientPutRequestBodyDto;
+import br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos.PatientResponseBodyDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -10,7 +12,6 @@ import org.mapstruct.ReportingPolicy;
 public interface PatientMapper {
 
     Patient map(PatientPostRequestBodyDto source);
-    PatientPostRequestBodyDto mapToPatientPostRequestBodyDto(Patient source);
 
     Patient map(PatientResponseBodyDto source);
     PatientResponseBodyDto mapToPatientResponseBodyDto(Patient source);
@@ -19,6 +20,4 @@ public interface PatientMapper {
 
     PatientIdDto mapToPatientIdDto(Patient source);
 
-    PatientDataInfoResponse mapToPatientDataInfoRespondeDto(PatientResponseBodyDto source);
-    PatientDataInfoResponse mapToPatientDataInfoRespondeDto(Patient source);
 }

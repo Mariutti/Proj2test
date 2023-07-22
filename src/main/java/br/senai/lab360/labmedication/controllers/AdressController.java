@@ -22,7 +22,7 @@ public class AdressController {
     @PostMapping
     public ResponseEntity<Address> saveAdress(@RequestBody AdressPostRequestBodyDto adress) {
         try {
-            return new ResponseEntity<Address>(adressService.save(adress), HttpStatus.CREATED);
+            return new ResponseEntity<>(adressService.save(adress), HttpStatus.CREATED);
 
         } catch (ConstraintViolationException ex) {
             throw new ResponseStatusException(

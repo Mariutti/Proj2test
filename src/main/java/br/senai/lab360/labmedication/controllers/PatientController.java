@@ -24,9 +24,9 @@ public class PatientController {
 
     //  S04
     @PostMapping
-    private ResponseEntity<PatientResponseBodyDto> savePatient(@RequestBody @Valid PatientPostRequestBodyDto patientPostRequestBodyDto) {
+    public ResponseEntity<PatientResponseBodyDto> savePatient(@RequestBody @Valid PatientPostRequestBodyDto patientPostRequestBodyDto) {
         try {
-            return new ResponseEntity<PatientResponseBodyDto>(patientService.savePatient(patientPostRequestBodyDto), HttpStatus.CREATED);
+            return new ResponseEntity<>(patientService.savePatient(patientPostRequestBodyDto), HttpStatus.CREATED);
         } catch (DataIntegrityViolationException ex) {
             throw new ResponseStatusException(
                     HttpStatus.CONFLICT, "Duplicated data: CPF already exists", ex);
@@ -41,7 +41,7 @@ public class PatientController {
     public ResponseEntity<PatientResponseBodyDto> replacePatientData(
             @PathVariable Long id, @RequestBody @Valid PatientPutRequestBodyDto patientPutRequestBodyDto) {
         try {
-            return new ResponseEntity<PatientResponseBodyDto>(patientService.
+            return new ResponseEntity<>(patientService.
                     replacePatientData(id, patientPutRequestBodyDto), HttpStatus.CREATED);
         } catch (DataIntegrityViolationException ex) {
             throw new ResponseStatusException(

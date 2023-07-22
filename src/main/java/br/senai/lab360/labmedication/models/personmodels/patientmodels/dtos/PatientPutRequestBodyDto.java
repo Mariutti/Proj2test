@@ -2,15 +2,11 @@ package br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos;
 
 import br.senai.lab360.labmedication.models.adressmodels.Address;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
 

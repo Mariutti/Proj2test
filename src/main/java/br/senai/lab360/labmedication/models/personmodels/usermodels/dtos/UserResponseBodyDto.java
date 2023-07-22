@@ -1,8 +1,6 @@
 package br.senai.lab360.labmedication.models.personmodels.usermodels.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.Date;
@@ -20,10 +18,10 @@ public class UserResponseBodyDto {
     private String cpf;
 
     private String rg;
-    public String maritalStatus;
-    public String phoneNumber;
-    public String email;
-    public String birthplace;
+    private String maritalStatus;
+    private String phoneNumber;
+    private String email;
+    private String birthplace;
     private String crm;
     private String medicalSpecialty;
 

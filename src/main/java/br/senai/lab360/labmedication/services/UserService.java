@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,21 +26,18 @@ public class UserService {
 
     public List<UserResponseBodyDto> findAll() {
         List<User> users = userRepository.findAll();
-        List<UserResponseBodyDto> listUsersResponseBodyDto = users
+        return users
                 .stream()
-                .map(x -> mapper.mapToUserResponseBodyDto(x)).collect(Collectors.toList());
-
-        return listUsersResponseBodyDto;
+                .map(mapper::mapToUserResponseBodyDto).toList();
     }
 
     //  S01
     public UserResponseBodyDto save(UserPostRequestBodyDto userPostRequestBodyDto) {
-        UserResponseBodyDto urd = mapper.mapToUserResponseBodyDto(
+        return mapper.mapToUserResponseBodyDto(
                 userRepository.save(
                         mapper.map(userPostRequestBodyDto)
                 )
         );
-        return urd;
     }
 
     public User findByIdOrThrowNotFoundException(Long id) {
@@ -49,7 +45,7 @@ public class UserService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
 
-    public UserResponseBodyDto findUsersByIdToDto(Long id){
+    public UserResponseBodyDto findUsersByIdToDto(Long id) {
         return mapper.mapToUserResponseBodyDto(findByIdOrThrowNotFoundException(id));
     }
 
@@ -68,8 +64,7 @@ public class UserService {
     //  S03
     public UserResponseBodyDto replacePwd(Long id, UserPatchPwdRequestDto userPatchPwdRequestDto) throws ConstraintViolationException {
         User savedUserPwd = findByIdOrThrowNotFoundException(id);
-        if (userPatchPwdRequestDto.getOldPwd().equals(savedUserPwd.getPassword()))
-        {
+        if (userPatchPwdRequestDto.getOldPwd().equals(savedUserPwd.getPassword())) {
             savedUserPwd.setPassword(userPatchPwdRequestDto.getNewPwd());
             return mapper.mapToUserResponseBodyDto(userRepository.save(savedUserPwd));
         } else {

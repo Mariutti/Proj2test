@@ -22,17 +22,19 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
+    static final String MESSAGE_ERROR_INVALID_DATA = "Ivalid data";
+
 //  S01
     @PostMapping
     public ResponseEntity<UserResponseBodyDto> saveUser(@RequestBody @Valid UserPostRequestBodyDto userPostRequestBodyDto) {
         try {
-            return new ResponseEntity<UserResponseBodyDto>(userService.save(userPostRequestBodyDto), HttpStatus.CREATED);
+            return new ResponseEntity<>(userService.save(userPostRequestBodyDto), HttpStatus.CREATED);
         } catch (DataIntegrityViolationException ex) {
             throw new ResponseStatusException(
                     HttpStatus.CONFLICT, "Duplicated data: CPF already exists", ex);
         } catch (ConstraintViolationException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Invalid data", ex);
+                    HttpStatus.BAD_REQUEST, MESSAGE_ERROR_INVALID_DATA, ex);
         }
     }
 
@@ -41,14 +43,14 @@ public class UserController {
     public ResponseEntity<UserResponseBodyDto> replaceUserData(
             @PathVariable Long id, @RequestBody @Valid UserPutRequestBodyDto userPutRequestBodyDto) {
         try {
-            return new ResponseEntity<UserResponseBodyDto>(userService.
+            return new ResponseEntity<>(userService.
                     replaceUserData(id, userPutRequestBodyDto), HttpStatus.OK);
         } catch (DataIntegrityViolationException ex) {
             throw new ResponseStatusException(
                     HttpStatus.CONFLICT, "Duplicated data: CPF already exists", ex);
         } catch (ConstraintViolationException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Invalid data", ex);
+                    HttpStatus.BAD_REQUEST, MESSAGE_ERROR_INVALID_DATA, ex);
         }
     }
 
@@ -58,12 +60,12 @@ public class UserController {
             @PathVariable Long id, @RequestBody @Valid UserPatchPwdRequestDto userPatchPwdRequestDto){
 
         try {
-            return new ResponseEntity<UserResponseBodyDto>(userService.
+            return new ResponseEntity<>(userService.
                     replacePwd(id, userPatchPwdRequestDto), HttpStatus.OK);
 
         } catch (ConstraintViolationException ex) {
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Invalid data", ex);
+                    HttpStatus.BAD_REQUEST, MESSAGE_ERROR_INVALID_DATA, ex);
         }
     }
 

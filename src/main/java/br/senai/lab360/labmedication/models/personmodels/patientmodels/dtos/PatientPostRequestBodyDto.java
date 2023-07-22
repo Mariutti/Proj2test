@@ -1,13 +1,12 @@
 package br.senai.lab360.labmedication.models.personmodels.patientmodels.dtos;
 
-import java.time.LocalDate;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import br.senai.lab360.labmedication.models.adressmodels.Address;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
+import java.time.LocalDate;
 
 @Data
 
